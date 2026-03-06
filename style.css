@@ -1,0 +1,136 @@
+    :root {
+      --bg-base: #05080d;
+      --bg-primary: #0a1019;
+      --bg-secondary: #111827;
+      --bg-card: #161f2d;
+      --bg-elevated: #1c2736;
+      --accent-primary: #00e884;
+      --accent-secondary: #00b864;
+      --accent-gold: #fbbf24;
+      --accent-red: #ef4444;
+      --text-primary: #f3f4f6;
+      --text-secondary: #9ca3af;
+      --text-muted: #6b7280;
+      --border-primary: #1f2937;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-base);
+      color: var(--text-primary);
+      overflow-x: hidden;
+    }
+
+    .font-display { font-family: 'Oswald', sans-serif; }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: var(--bg-primary); }
+    ::-webkit-scrollbar-thumb { background: var(--bg-elevated); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+    /* Animations */
+    @keyframes pulse-live { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+    @keyframes slide-in-left { from { transform: translateX(-100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+    @keyframes slide-in-right { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+    @keyframes slide-in-up { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes scale-in { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    
+    .animate-pulse-live { animation: pulse-live 1.5s ease-in-out infinite; }
+    .animate-slide-left { animation: slide-in-left 0.4s ease-out forwards; }
+    .animate-slide-right { animation: slide-in-right 0.4s ease-out forwards; }
+    .animate-slide-up { animation: slide-in-up 0.4s ease-out forwards; }
+    .animate-fade { animation: fade-in 0.3s ease-out forwards; }
+    .animate-scale { animation: scale-in 0.3s ease-out forwards; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* Component Styles */
+    .odds-btn {
+      background: var(--bg-elevated);
+      transition: all 0.15s ease;
+      border: 1px solid transparent;
+    }
+    .odds-btn:hover:not(.selected) {
+      background: var(--bg-card);
+      border-color: var(--accent-primary);
+      transform: translateY(-1px);
+    }
+    .odds-btn.selected {
+      background: var(--accent-primary);
+      color: var(--bg-base);
+      font-weight: 600;
+    }
+
+    .nav-item { position: relative; }
+    .nav-item::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent-primary);
+      transition: width 0.3s ease;
+    }
+    .nav-item:hover::after, .nav-item.active::after { width: 100%; }
+
+    .match-row:hover, .match-card:hover { background: var(--bg-elevated); cursor: pointer; }
+    
+    .modal-backdrop {
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+      transition: all 0.2s ease;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 232, 132, 0.25);
+    }
+    .btn-primary:active { transform: translateY(0); }
+
+    .btn-secondary {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-primary);
+      transition: all 0.2s ease;
+    }
+    .btn-secondary:hover {
+      border-color: var(--accent-primary);
+      background: var(--bg-card);
+    }
+
+    .input-field {
+      background: var(--bg-primary);
+      border: 1px solid var(--border-primary);
+      transition: all 0.2s ease;
+    }
+    .input-field:focus {
+      outline: none;
+      border-color: var(--accent-primary);
+      box-shadow: 0 0 0 3px rgba(0, 232, 132, 0.1);
+    }
+
+    /* Sidebar Logic */
+    #leftSidebar {
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+    }
+    #leftSidebar.open {
+      transform: translateX(0);
+    }
+    @media (min-width: 1024px) {
+      #leftSidebar {
+        transform: translateX(0);
+      }
+    }
